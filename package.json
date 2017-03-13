@@ -1,0 +1,32 @@
+{
+  "name": "jaeyoon.org",
+  "version": "1.0.0",
+  "description": "whoami on Jaeyoon Lee",
+  "main": "index.js",
+  "scripts": {
+    "start": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jcrew/jcrew.github.io.git"
+  },
+  "keywords": [
+    "jaeyoon",
+    "lee",
+    "jcrew",
+    "github"
+  ],
+  "author": "Jaeyoon Lee",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jcrew/jcrew.github.io/issues"
+  },
+  "homepage": "https://github.com/jcrew/jcrew.github.io#readme",
+  "devDependencies": {
+    "connect": "^3.6.0",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-jade-tasks": "0.0.0",
+    "serve-static": "^1.12.1"
+  }
+}
