@@ -2,20 +2,46 @@
 <html>
   <head>
     <title>Jaeyoon.org</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline-bootstrap.css"/>
+    <link link="link" rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline.css"/>
+    <link link="link" rel="stylesheet" href="bower_components/ng-prettyjson/dist/ng-prettyjson.min.css"/>
+    <link rel="stylesheet" href="client/static/css/style.css"/>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-timeline/dist/angular-timeline.js"></script>
+    <script src="bower_components/ng-prettyjson/dist/ng-prettyjson.min.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="client/app.js"></script>
   </head>
-  <body># NOTE
-Under Development
-
-## Requirements
-```
-sudo npm install -g jade grunt marked
-install grunt tasks and connect framework
-
-npm install grunt-contrib-watch --save-dev
-npm install grunt-jade-tasks --save-dev
-npm install connect --save-dev
-```
-
-
+  <body ng-app="jaeyoon">
+    <div ng-controller="timelineCtlr">
+      <nav class="navbar navbar-line">
+        <div class="navbar-header"><a href="#" class="navbar-brand">Jaeyoon Lee</a></div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#whoami">> whoami</a></li>
+            <li><a href="#history">> history</a></li>
+          </ul>
+        </div>
+      </nav>
+      <div id="whoami" class="container">
+        <h1 class="section-header">whoami</h1>
+        <pre pretty-json="whoami" class="pretty-json"></pre>
+      </div>
+      <div id="history" class="container">
+        <h1 class="section-header">History</h1>
+        <timeline>
+          <timeline-event ng-repeat="event in events">
+            <timeline-badge class="timeline-badge-custom"></timeline-badge>
+            <timeline-panel>
+              <timeline-heading>
+                <h4>{{event.title}}</h4>
+              </timeline-heading>
+              <p>{{event.content}}</p>
+            </timeline-panel>
+          </timeline-event>
+        </timeline>
+      </div>
+    </div>
   </body>
 </html>

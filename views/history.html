@@ -1,0 +1,15 @@
+
+<div id="history" class="container">
+  <h1 class="section-header">History</h1>
+  <timeline>
+    <timeline-event ng-repeat="event in events">
+      <timeline-badge class="timeline-badge-custom"></timeline-badge>
+      <timeline-panel>
+        <timeline-heading>
+          <h4>{{event.title}}</h4>
+        </timeline-heading>
+        <p>{{event.content}}</p>
+      </timeline-panel>
+    </timeline-event>
+  </timeline>
+</div>

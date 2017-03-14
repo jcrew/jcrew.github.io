@@ -1,0 +1,9 @@
+div#history.container
+    h1.section-header History
+    timeline
+        timeline-event(ng-repeat="event in events")
+            timeline-badge.timeline-badge-custom
+            timeline-panel
+                timeline-heading
+                    h4 {{event.title}}
+                p {{event.content}}
