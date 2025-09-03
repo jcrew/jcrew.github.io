@@ -1,47 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jaeyoon Lee - Senior Software Engineer specializing in AI/ML, Web Technologies, and Speech Recognition. Former Apple Siri team member.">
+    <meta name="author" content="Jaeyoon Lee">
+    <meta name="keywords" content="software engineer, AI, machine learning, speech recognition, NLP, web development, Apple, Siri">
+    <meta property="og:title" content="Jaeyoon Lee - Senior Software Engineer">
+    <meta property="og:description" content="Senior Software Engineer specializing in AI/ML, Web Technologies, and Speech Recognition">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jcrew.github.io">
+    <title>Jaeyoon Lee - Senior Software Engineer</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="client/static/css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-brand">
+                <h1>Jaeyoon Lee</h1>
+                <span class="nav-subtitle">Staff Software Engineer @ Apple</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about" aria-label="About section">About</a></li>
+                <li><a href="#locations" aria-label="Locations section">Locations</a></li>
+                <li><a href="#experience" aria-label="Experience section">Experience</a></li>
+                <li><a href="#gallery" aria-label="Career gallery section">Gallery</a></li>
+                <li><a href="#contact" aria-label="Contact section">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </nav>
+    </header>
 
-<html>
-  <head>
-    <title>Jaeyoon.org</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline-bootstrap.css"/>
-    <link link="link" rel="stylesheet" href="bower_components/angular-timeline/dist/angular-timeline.css"/>
-    <link link="link" rel="stylesheet" href="bower_components/ng-prettyjson/dist/ng-prettyjson.min.css"/>
-    <link rel="stylesheet" href="client/static/css/style.css"/>
-    <script src="bower_components/angular/angular.min.js"></script>
-    <script src="bower_components/angular-timeline/dist/angular-timeline.js"></script>
-    <script src="bower_components/ng-prettyjson/dist/ng-prettyjson.min.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="client/app.js"></script>
-  </head>
-  <body ng-app="jaeyoon">
-    <div ng-controller="timelineCtlr">
-      <nav class="navbar navbar-line">
-        <div class="navbar-header"><a href="#" class="navbar-brand">Jaeyoon Lee</a></div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#whoami">> whoami</a></li>
-            <li><a href="#history">> history</a></li>
-          </ul>
+    <main class="main">
+        <section id="hero" class="hero-section">
+            <div class="hero-content">
+                <div class="profile-photo">
+                    <img src="public/images/profile.jpg" alt="Jaeyoon Lee - Staff Software Engineer" class="profile-image">
+                </div>
+                <h1 class="hero-title">Building the Future with Code</h1>
+                <p class="hero-subtitle">Staff Software Engineer & Engineering Lead at Apple, specializing in AI/ML Infrastructure and On-Device Model Validation</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#experience" class="btn btn-secondary">View Experience</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section" aria-labelledby="about-heading">
+            <div class="section-container">
+                <h2 id="about-heading" class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I'm a Staff Software Engineer and Engineering Lead at Apple with over a decade of experience building innovative AI/ML solutions. My journey spans from military logistics leadership to mobile browser optimization, culminating in leading critical AI infrastructure for Siri and Apple's on-device ML systems.</p>
+                        <p>I specialize in large-scale AI/ML systems, on-device model validation, and cross-platform engineering. My experience across startups and Fortune 500 companies, combined with my Korean-English bilingual capabilities, gives me unique perspectives on building technology solutions that scale globally.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">11+</span>
+                            <span class="stat-label">Years at Apple</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">15+</span>
+                            <span class="stat-label">Years Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="locations" class="section section-dark" aria-labelledby="locations-heading">
+            <div class="section-container">
+                <h2 id="locations-heading" class="section-title">Global Journey</h2>
+                <p class="locations-subtitle">Places I've lived, worked, and traveled - spanning across continents and cultures</p>
+                <div id="world-map" class="map-container">
+                    <div class="map-wrapper">
+                        <div id="google-map" class="google-map"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="locations-grid">
+                    <div class="location-category">
+                        <h3 class="location-category-title">🇺🇸 United States</h3>
+                        <div class="location-list">
+                            <span class="location-tag">Boston, MA</span>
+                            <span class="location-tag">Seattle, WA</span>
+                            <span class="location-tag">Sacramento, CA</span>
+                            <span class="location-tag">San Francisco, CA</span>
+                            <span class="location-tag">Berkeley, CA</span>
+                            <span class="location-tag">San Diego, CA</span>
+                            <span class="location-tag">Fresno, CA</span>
+                            <span class="location-tag">Foster City, CA</span>
+                            <span class="location-tag">Mountain View, CA</span>
+                            <span class="location-tag">Palo Alto, CA</span>
+                            <span class="location-tag">Washington, DC</span>
+                            <span class="location-tag">New York, NY</span>
+                            <span class="location-tag">Dallas, TX</span>
+                            <span class="location-tag">Oahu, HI</span>
+                            <span class="location-tag">Kona, HI</span>
+                        </div>
+                    </div>
+                    <div class="location-category">
+                        <h3 class="location-category-title">🇰🇷 Asia Pacific</h3>
+                        <div class="location-list">
+                            <span class="location-tag">Seoul, Korea</span>
+                            <span class="location-tag">Tokyo, Japan</span>
+                            <span class="location-tag">Yokohama, Japan</span>
+                            <span class="location-tag">Beijing, China</span>
+                            <span class="location-tag">Hong Kong</span>
+                            <span class="location-tag">Kuala Lumpur, Malaysia</span>
+                        </div>
+                    </div>
+                    <div class="location-category">
+                        <h3 class="location-category-title">🇪🇺 Europe</h3>
+                        <div class="location-list">
+                            <span class="location-tag">London, UK</span>
+                            <span class="location-tag">Paris, France</span>
+                            <span class="location-tag">Madrid, Spain</span>
+                            <span class="location-tag">Stockholm, Sweden</span>
+                            <span class="location-tag">Linköping, Sweden</span>
+                            <span class="location-tag">Malmö, Sweden</span>
+                            <span class="location-tag">Oslo, Norway</span>
+                            <span class="location-tag">Wrocław, Poland</span>
+                        </div>
+                    </div>
+                    <div class="location-category">
+                        <h3 class="location-category-title">🇨🇦 Americas</h3>
+                        <div class="location-list">
+                            <span class="location-tag">Ottawa, Canada</span>
+                            <span class="location-tag">Montreal, Canada</span>
+                            <span class="location-tag">Banff, Canada</span>
+                            <span class="location-tag">Cancun, Mexico</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section" aria-labelledby="experience-heading">
+            <div class="section-container">
+                <h2 id="experience-heading" class="section-title">Professional Experience</h2>
+                <div class="timeline" role="list" aria-label="Career timeline">
+                    <article class="timeline-item" role="listitem">
+                        <div class="timeline-marker" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Staff Software Engineer / Engineering Lead</h3>
+                                <span class="timeline-company">Apple Inc.</span>
+                                <span class="timeline-date">May 2014 - Present · 11 yrs 5 mos</span>
+                                <span class="timeline-location">Cupertino, California</span>
+                            </div>
+                            <div class="timeline-description">
+                                <p>Staff Software Engineer and Engineering Lead driving AI/ML infrastructure initiatives across Apple's ecosystem. Leading critical teams responsible for Siri, AI/ML Business Intelligence, and on-device ML model validation systems.</p>
+                                <ul class="timeline-achievements">
+                                    <li>Lead engineering teams developing on-device ML model validation infrastructure serving all Apple platforms</li>
+                                    <li>Drive cross-platform engineering initiatives spanning iOS, macOS, watchOS, and tvOS ecosystems</li>
+                                    <li>Establish engineering standards and mentor development teams across AI/ML organization</li>
+                                    <li>Own technical architecture decisions for infrastructure projects impacting engineering productivity and development velocity</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="timeline-item" role="listitem">
+                        <div class="timeline-marker" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Sr. Software Engineer</h3>    
+                                <span class="timeline-company">Skyfire (an Opera Software company)</span>
+                                <span class="timeline-date">Nov 2013 - May 2014 · 7 mos</span>
+                                <span class="timeline-location">Mountain View, California</span>
+                            </div>
+                            <div class="timeline-description">
+                                <p>Test planning and automation for Rocket Optimizer, server-side applications optimizing mobile video in real time.</p>
+                                <ul class="timeline-achievements">
+                                    <li>Designed and developed end-to-end testing framework for Rocket Optimizer</li>
+                                    <li>Improved mobile video user experience and reduced cellular traffic through optimization</li>
+                                    <li>Built automated test infrastructure for real-time video processing systems</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="timeline-item" role="listitem">
+                        <div class="timeline-marker" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Sr. Software QA Engineer</h3>
+                                <span class="timeline-company">Opera Software Americas, LLC</span>
+                                <span class="timeline-date">Feb 2012 - Nov 2013 · 1 yr 10 mos</span>
+                                <span class="timeline-location">San Mateo, California</span>
+                            </div>
+                            <div class="timeline-description">
+                                <p>Test manager for Opera Web Pass and mobile application development across multiple carrier partnerships.</p>
+                                <ul class="timeline-achievements">
+                                    <li>Led test planning and automation for Opera Web Pass delivery (DiGi, DTAC, Maxis, MTSUA)</li>
+                                    <li>Developed Opera Mini Widget for Verizon Wireless deployment</li>
+                                    <li>Built HTML5 app prototypes and development for Opera TV Store App</li>
+                                    <li>Managed cross-platform testing and carrier integration projects</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="timeline-item" role="listitem">
+                        <div class="timeline-marker" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Software QA Engineer / System Administrator</h3>
+                                <span class="timeline-company">Opera Software Korea</span>
+                                <span class="timeline-date">Sep 2008 - Feb 2012 · 3 yrs 6 mos</span>
+                                <span class="timeline-location">Seoul, Korea</span>
+                            </div>
+                            <div class="timeline-description">
+                                <p>Led Opera Mini/Mobile delivery for major Korean carriers and comprehensive mobile browser testing.</p>
+                                <ul class="timeline-achievements">
+                                    <li>Delivered Opera Mini/Mobile for SK Telecom, Samsung, LGE, and Pantech partnerships</li>
+                                    <li>Built test automation and billing system integration with SK Telecom and Opera Mini clouds</li>
+                                    <li>Conducted comprehensive testing across Android, iOS, Windows Mobile, BrewMP, and J2ME platforms</li>
+                                    <li>Managed large-scale production server systems with troubleshooting and monitoring</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="timeline-item" role="listitem">
+                        <div class="timeline-marker" aria-hidden="true"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3 class="timeline-title">Storage Section NCOIC and Warehouse IMO, Sergeant</h3>
+                                <span class="timeline-company">US Army (KATUSA Program)</span>
+                                <span class="timeline-date">Jul 2006 - Jul 2008 · 2 yrs 1 mo</span>
+                                <span class="timeline-location">Waegwan, Korea</span>
+                            </div>
+                            <div class="timeline-description">
+                                <p>Military leadership role in US 8th Army, 18th Medcom, 16th Medical Logistics BN through KATUSA program.</p>
+                                <ul class="timeline-achievements">
+                                    <li>Led storage section operations and served as Warehouse IMO (Information Management Officer)</li>
+                                    <li>Specialized in MRO (Maintenance, Repair, Operations) denial and logistics management</li>
+                                    <li>Managed critical medical logistics operations for multinational military operations</li>
+                                    <li>Demonstrated cross-cultural leadership in Korean Augmentation Troops program</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section section-dark" aria-labelledby="gallery-heading">
+            <div class="section-container">
+                <h2 id="gallery-heading" class="section-title">Career Journey</h2>
+                <p class="gallery-subtitle">A visual timeline of my professional journey across different companies and teams</p>
+                <div class="photo-gallery">
+                    <div class="photo-item">
+                        <img src="public/images/album/2009.02.20.Opera-Software-Sweden-Team-Visit.jpg" alt="Opera Software Sweden Team Visit" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Opera Software Sweden Team Visit</h4>
+                            <span class="photo-date">February 20, 2009</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2010.11.09.Opera-Software-Global-Engineering-Seminar.jpg" alt="Opera Software Global Engineering Seminar" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Opera Software Global Engineering Seminar</h4>
+                            <span class="photo-date">November 9, 2010</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2012.02.03.Opera-Software-Korea-Team-Event.jpg" alt="Opera Software Korea Team Event" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Opera Software Korea Team Event</h4>
+                            <span class="photo-date">February 3, 2012</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2012-02.13.Opera-Software-US-First-Day.jpg" alt="Opera Software US First Day" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Opera Software US First Day</h4>
+                            <span class="photo-date">February 13, 2012</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2017.05.06.Apple-Siri-Team-Golf.jpg" alt="Apple Siri Team Golf Event" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Apple Siri Team Golf Event</h4>
+                            <span class="photo-date">May 6, 2017</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2019.07.31.Apple-Siri-Astroyd-eam.jpg" alt="Apple Siri Team" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Apple Siri Team</h4>
+                            <span class="photo-date">July 31, 2019</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2022.02.18.Apple-Unsung-Hero-Recognition.png" alt="Apple Unsung Hero Recognition" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Apple Unsung Hero Recognition</h4>
+                            <span class="photo-date">February 18, 2022</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2023.11.03.AIML-DICE-Team-Gathering.jpg" alt="AI/ML DICE Team Gathering" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>AI/ML DICE Team Gathering</h4>
+                            <span class="photo-date">November 3, 2023</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2023.11.21.APEC-in-SF.jpg" alt="APEC Conference in San Francisco" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>APEC Conference in San Francisco</h4>
+                            <span class="photo-date">November 21, 2023</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2024.05.29.Apple-10yr-Aniversary.png" alt="Apple 10 Year Anniversary" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Apple 10 Year Anniversary</h4>
+                            <span class="photo-date">May 29, 2024</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2024.06.15.Apple-Siri-OG.jpg" alt="Apple Siri Original Team" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Apple Siri Original Team</h4>
+                            <span class="photo-date">June 15, 2024</span>
+                        </div>
+                    </div>
+                    <div class="photo-item">
+                        <img src="public/images/album/2025.05.24.Boston-Redhat-Summit.jpg" alt="Boston Red Hat Summit" class="gallery-image">
+                        <div class="photo-caption">
+                            <h4>Boston Red Hat Summit</h4>
+                            <span class="photo-date">May 24, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section" aria-labelledby="contact-heading">
+            <div class="section-container">
+                <h2 id="contact-heading" class="section-title">Let's Connect</h2>
+                <div class="contact-content">
+                    <div class="contact-text">
+                        <p>I'm always interested in discussing new opportunities, innovative projects, and technological challenges. Whether you're looking for technical leadership, AI/ML expertise, or just want to chat about the latest in software engineering.</p>
+                    </div>
+                    <div class="contact-links">
+                        <a href="mailto:contact@jaeyoon.org" class="contact-link" aria-label="Send email">
+                            <img src="public/images/icon/icons8-email-50.png" alt="Email" class="contact-icon-img">
+                            <span class="contact-label">Email</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/jaeyoon-lee-4a588219" class="contact-link" aria-label="LinkedIn profile" target="_blank" rel="noopener noreferrer">
+                            <img src="public/images/icon/icons8-linkedin-50.png" alt="LinkedIn" class="contact-icon-img">
+                            <span class="contact-label">LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/jcrew" class="contact-link" aria-label="GitHub profile" target="_blank" rel="noopener noreferrer">
+                            <img src="public/images/icon/icons8-github-50.png" alt="GitHub" class="contact-icon-img">
+                            <span class="contact-label">GitHub</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Jaeyoon Lee</p>
         </div>
-      </nav>
-      <div id="whoami" class="container">
-        <h1 class="section-header">whoami</h1>
-        <pre pretty-json="whoami" class="pretty-json"></pre>
-      </div>
-      <div id="history" class="container">
-        <h1 class="section-header">History</h1>
-        <timeline>
-          <timeline-event ng-repeat="event in events">
-            <timeline-badge class="timeline-badge-custom"></timeline-badge>
-            <timeline-panel>
-              <timeline-heading>
-                <h4>{{event.title}}</h4>
-              </timeline-heading>
-              <p>{{event.content}}</p>
-            </timeline-panel>
-          </timeline-event>
-        </timeline>
-      </div>
-    </div>
-  </body>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="client/app.js"></script>
+</body>
 </html>
