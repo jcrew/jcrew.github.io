@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('theme', newTheme);
         updateThemeIcon(newTheme);
         
+        // Update map theme if map exists
+        if (window.worldMap) {
+            updateMapTheme(newTheme);
+        }
+        
         // Add smooth transition effect
         document.body.style.transition = 'all 0.3s ease';
         setTimeout(() => {
@@ -507,12 +512,12 @@ function initializeWorldMap() {
         scrollWheelZoom: true
     });
 
-    // Add dark theme tile layer
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '',
-        subdomains: 'abcd',
-        maxZoom: 19
-    }).addTo(map);
+    // Store map globally for theme updates
+    window.worldMap = map;
+
+    // Get current theme and add appropriate tile layer
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    addMapTileLayer(map, currentTheme);
 
     // Custom marker icon
     const customIcon = L.divIcon({
@@ -532,7 +537,7 @@ function initializeWorldMap() {
         // Add popup
         marker.bindPopup(`
             <div style="
-                padding: 8px 12px; 
+                padding: 8px 20px 8px 10px; 
                 font-weight: 600; 
                 color: #1e293b;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -548,4 +553,32 @@ function initializeWorldMap() {
     setTimeout(() => {
         map.invalidateSize();
     }, 100);
+}
+
+// Function to add appropriate tile layer based on theme
+function addMapTileLayer(map, theme) {
+    // Remove existing tile layers
+    map.eachLayer(function(layer) {
+        if (layer instanceof L.TileLayer) {
+            map.removeLayer(layer);
+        }
+    });
+
+    // Add appropriate tile layer based on theme
+    const tileLayerUrl = theme === 'light' 
+        ? 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png'
+        : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
+
+    L.tileLayer(tileLayerUrl, {
+        attribution: '',
+        subdomains: 'abcd',
+        maxZoom: 19
+    }).addTo(map);
+}
+
+// Function to update map theme
+function updateMapTheme(theme) {
+    if (window.worldMap) {
+        addMapTileLayer(window.worldMap, theme);
+    }
 }
