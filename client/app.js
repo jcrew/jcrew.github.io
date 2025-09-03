@@ -537,7 +537,7 @@ function initializeWorldMap() {
         // Add popup
         marker.bindPopup(`
             <div style="
-                padding: 8px 12px; 
+                padding: 8px 20px 8px 10px; 
                 font-weight: 600; 
                 color: #1e293b;
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
