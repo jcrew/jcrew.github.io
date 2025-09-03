@@ -96,6 +96,39 @@ body {
     background: rgba(255, 255, 255, 0.95);
 }
 
+[data-theme="light"] .company-logo {
+    background: var(--card-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .logo-image {
+    filter: brightness(0.8);
+}
+
+[data-theme="light"] .timeline-content:hover .logo-image {
+    filter: brightness(0.6);
+}
+
+[data-theme="light"] .map-container {
+    background: #f8fafc;
+    border-color: rgba(148, 163, 184, 0.2);
+}
+
+[data-theme="light"] .map-wrapper {
+    background: #ffffff;
+}
+
+[data-theme="light"] .marker-pin {
+    background: var(--primary-color);
+    border-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
+}
+
+[data-theme="light"] .marker-pin:hover {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 16px rgba(6, 182, 212, 0.4);
+}
+
 .nav {
     display: flex;
     justify-content: space-between;
@@ -619,7 +652,40 @@ body {
 }
 
 .timeline-header {
+    position: relative;
     margin-bottom: var(--spacing-md);
+}
+
+.company-logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-background);
+    border-radius: var(--border-radius);
+    padding: 8px;
+}
+
+.logo-image {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    object-position: center;
+    filter: brightness(0.9);
+    transition: filter 0.3s ease;
+}
+
+.timeline-content:hover .logo-image {
+    filter: brightness(1.1);
+}
+
+.company-logo img[src*="us-army-logo"] {
+    width: 66px;
+    height: 66px;
 }
 
 .timeline-title {
@@ -1012,6 +1078,22 @@ body {
         border-bottom-width: 8px;
     }
     
+    .company-logo {
+        width: 45px;
+        height: 45px;
+        padding: 6px;
+    }
+    
+    .logo-image {
+        width: 33px;
+        height: 33px;
+    }
+    
+    .company-logo img[src*="us-army-logo"] {
+        width: 49px;
+        height: 49px;
+    }
+    
     .photo-gallery {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
@@ -1080,6 +1162,22 @@ body {
     
     .map-wrapper {
         height: 250px;
+    }
+    
+    .company-logo {
+        width: 40px;
+        height: 40px;
+        padding: 4px;
+    }
+    
+    .logo-image {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .company-logo img[src*="us-army-logo"] {
+        width: 48px;
+        height: 48px;
     }
     
     .marker-dot {
