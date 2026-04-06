@@ -11,11 +11,15 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://jcrew.github.io">
     <title>Jaeyoon Lee - Senior Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="client/static/css/style.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👨‍💻</text></svg>">
 </head>
 <body>
+    <div class="scroll-progress" id="scroll-progress"></div>
     <header class="header">
         <nav class="nav" role="navigation" aria-label="Main navigation">
             <div class="nav-brand">
@@ -29,6 +33,11 @@
                 <li><a href="#gallery" aria-label="Career gallery section">Gallery</a></li>
                 <li><a href="#contact" aria-label="Contact section">Contact</a></li>
             </ul>
+            <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <button class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
                 <span class="theme-icon">🌙</span>
             </button>
@@ -41,8 +50,8 @@
                 <div class="profile-photo">
                     <img src="public/images/profile.jpg" alt="Jaeyoon Lee - Staff Software Engineer" class="profile-image">
                 </div>
-                <h1 class="hero-title">Building the Future with Code</h1>
-                <p class="hero-subtitle">Staff Software Engineer & Engineering Lead at Apple, specializing in AI/ML Infrastructure and On-Device Model Validation</p>
+                <h1 class="hero-title">Engineering at the Edge of AI</h1>
+                <p class="hero-subtitle">Staff Software Engineer & Engineering Lead at Apple, building AI/ML infrastructure and exploring agentic workflows, multi-agent orchestration, and AI-native development with tools like Claude Code</p>
                 <div class="hero-cta">
                     <a href="#contact" class="btn btn-primary">Get In Touch</a>
                     <a href="#experience" class="btn btn-secondary">View Experience</a>
@@ -55,8 +64,8 @@
                 <h2 id="about-heading" class="section-title">About Me</h2>
                 <div class="about-content">
                     <div class="about-text">
-                        <p>I'm a Staff Software Engineer and Engineering Lead at Apple with over a decade of experience building innovative AI/ML solutions. My journey spans from military logistics leadership to mobile browser optimization, culminating in leading critical AI infrastructure for Siri and Apple's on-device ML systems.</p>
-                        <p>I specialize in large-scale AI/ML systems, on-device model validation, and cross-platform engineering. My experience across startups and Fortune 500 companies, combined with my Korean-English bilingual capabilities, gives me unique perspectives on building technology solutions that scale globally.</p>
+                        <p>I'm a Staff Software Engineer and Engineering Lead at Apple with over a decade of experience building AI/ML infrastructure. My work spans on-device model validation for Siri and Apple Intelligence, cross-platform AI systems across iOS, macOS, watchOS, and tvOS, and the tooling that lets engineering teams ship reliable ML models at scale.</p>
+                        <p>Beyond my day job, I'm deeply engaged with the evolving frontier of AI-native development — designing multi-agent orchestration systems where specialized AI agents collaborate autonomously to tackle complex engineering tasks, and applying agentic workflows to compress the gap between idea and working software. I use tools like Claude Code daily to operate at the task level: describing goals, delegating execution, and iterating at a pace that wasn't possible before. This isn't vibe coding for prototypes — it's a disciplined, production-minded approach to building with AI as a first-class collaborator.</p>
                     </div>
                     <div class="about-stats">
                         <div class="stat-item">
@@ -399,6 +408,8 @@
             <p>&copy; 2025 Jaeyoon Lee</p>
         </div>
     </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="client/app.js"></script>

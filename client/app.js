@@ -193,6 +193,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 stat.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
                 skillsObserver.observe(stat);
             });
+
+            // Photo gallery items
+            const photoItems = document.querySelectorAll('.photo-item');
+            photoItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = `opacity 0.6s ease ${(index % 4) * 0.1}s, transform 0.6s ease ${(index % 4) * 0.1}s`;
+                timelineObserver.observe(item);
+            });
         }
         
         initializeAnimations();
@@ -242,15 +251,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Performance optimized scroll handling
     let ticking = false;
     let lastScrollY = 0;
-    
+
+    const progressBar = document.getElementById('scroll-progress');
+    const backToTopBtn = document.getElementById('back-to-top');
+
     function handleScroll() {
         if (!ticking) {
             requestAnimationFrame(() => {
                 const currentScrollY = window.scrollY;
-                
+
+                // Scroll progress bar
+                if (progressBar) {
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    progressBar.style.width = (docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0) + '%';
+                }
+
+                // Back to top visibility
+                if (backToTopBtn) {
+                    backToTopBtn.classList.toggle('visible', currentScrollY > 400);
+                }
+
                 // Update active navigation
                 updateActiveNav();
-                
+
                 // Header transparency effect
                 const header = document.querySelector('.header');
                 if (currentScrollY > 100) {
@@ -264,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         header.style.background = 'rgba(255, 255, 255, 0.95)';
                     }
                 }
-                
+
                 lastScrollY = currentScrollY;
                 ticking = false;
             });
@@ -417,6 +440,60 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize gallery after DOM content is loaded
     initializeGallery();
+
+    // Back to top button
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('nav-hamburger');
+    const navLinksList = document.querySelector('.nav-links');
+
+    if (hamburger && navLinksList) {
+        hamburger.addEventListener('click', () => {
+            const isOpen = navLinksList.classList.toggle('mobile-open');
+            hamburger.classList.toggle('active', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when a nav link is clicked
+        navLinksList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinksList.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+
+    // Animated stat counters
+    function animateCounter(element, target, duration = 1400) {
+        const startTime = performance.now();
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            element.textContent = Math.floor(eased * target) + '+';
+            if (progress < 1) requestAnimationFrame(update);
+            else element.textContent = target + '+';
+        }
+        requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.dataset.counted) {
+                entry.target.dataset.counted = 'true';
+                const match = entry.target.textContent.match(/(\d+)/);
+                if (match) animateCounter(entry.target, parseInt(match[1]));
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
     
     // Initialize theme and scroll position
     initializeTheme();
