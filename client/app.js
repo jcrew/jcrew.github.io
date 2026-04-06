@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 // Modern JavaScript for professional personal website
 document.addEventListener('DOMContentLoaded', function() {
     // Theme management
@@ -664,7 +666,6 @@ function updateMapTheme(theme) {
 
 // ─── Three.js Hero Scene: Scroll-Driven 3D Career Journey ────────────────────
 function initThreeScene() {
-    if (!window.THREE) return;
     const canvas = document.getElementById('three-canvas');
     if (!canvas) return;
 
