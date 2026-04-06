@@ -8,8 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize theme
     function initializeTheme() {
         const savedTheme = localStorage.getItem('theme');
-        const systemTheme = prefersDarkScheme.matches ? 'dark' : 'light';
-        const currentTheme = savedTheme || systemTheme;
+        const currentTheme = savedTheme || 'dark';
         
         document.documentElement.setAttribute('data-theme', currentTheme);
         updateThemeIcon(currentTheme);
@@ -193,6 +192,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 stat.style.transition = `opacity 0.5s ease ${index * 0.1}s, transform 0.5s ease ${index * 0.1}s`;
                 skillsObserver.observe(stat);
             });
+
+            // Photo gallery items
+            const photoItems = document.querySelectorAll('.photo-item');
+            photoItems.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(30px)';
+                item.style.transition = `opacity 0.6s ease ${(index % 4) * 0.1}s, transform 0.6s ease ${(index % 4) * 0.1}s`;
+                timelineObserver.observe(item);
+            });
         }
         
         initializeAnimations();
@@ -242,15 +250,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // Performance optimized scroll handling
     let ticking = false;
     let lastScrollY = 0;
-    
+
+    const progressBar = document.getElementById('scroll-progress');
+    const backToTopBtn = document.getElementById('back-to-top');
+
     function handleScroll() {
         if (!ticking) {
             requestAnimationFrame(() => {
                 const currentScrollY = window.scrollY;
-                
+
+                // Scroll progress bar
+                if (progressBar) {
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    progressBar.style.width = (docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0) + '%';
+                }
+
+                // Back to top visibility
+                if (backToTopBtn) {
+                    backToTopBtn.classList.toggle('visible', currentScrollY > 400);
+                }
+
                 // Update active navigation
                 updateActiveNav();
-                
+
                 // Header transparency effect
                 const header = document.querySelector('.header');
                 if (currentScrollY > 100) {
@@ -264,7 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         header.style.background = 'rgba(255, 255, 255, 0.95)';
                     }
                 }
-                
+
                 lastScrollY = currentScrollY;
                 ticking = false;
             });
@@ -417,6 +439,60 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize gallery after DOM content is loaded
     initializeGallery();
+
+    // Back to top button
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('nav-hamburger');
+    const navLinksList = document.querySelector('.nav-links');
+
+    if (hamburger && navLinksList) {
+        hamburger.addEventListener('click', () => {
+            const isOpen = navLinksList.classList.toggle('mobile-open');
+            hamburger.classList.toggle('active', isOpen);
+            hamburger.setAttribute('aria-expanded', isOpen);
+        });
+
+        // Close menu when a nav link is clicked
+        navLinksList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinksList.classList.remove('mobile-open');
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+
+    // Animated stat counters
+    function animateCounter(element, target, duration = 1400) {
+        const startTime = performance.now();
+        function update(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            element.textContent = Math.floor(eased * target) + '+';
+            if (progress < 1) requestAnimationFrame(update);
+            else element.textContent = target + '+';
+        }
+        requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.dataset.counted) {
+                entry.target.dataset.counted = 'true';
+                const match = entry.target.textContent.match(/(\d+)/);
+                if (match) animateCounter(entry.target, parseInt(match[1]));
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(el => counterObserver.observe(el));
     
     // Initialize theme and scroll position
     initializeTheme();
@@ -448,6 +524,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize Leaflet map
     initializeWorldMap();
+
+    // Initialize hero Three.js scene
+    initThreeScene();
     
     console.log('🎯 Professional portfolio loaded successfully!');
     console.log('📸 Gallery with career photos ready!');
@@ -581,4 +660,171 @@ function updateMapTheme(theme) {
     if (window.worldMap) {
         addMapTileLayer(window.worldMap, theme);
     }
+}
+
+// ─── Three.js Hero Scene: Scroll-Driven 3D Career Journey ────────────────────
+function initThreeScene() {
+    if (!window.THREE) return;
+    const canvas = document.getElementById('three-canvas');
+    if (!canvas) return;
+
+    const W = () => window.innerWidth;
+    const H = () => window.innerHeight;
+
+    // ── Renderer ───────────────────────────────────────────────────────────────
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(W(), H());
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(55, W() / H(), 0.1, 500);
+
+    // ── Glow sprite texture ────────────────────────────────────────────────────
+    function glowTexture(r, g, b, size = 64) {
+        const c = document.createElement('canvas');
+        c.width = c.height = size;
+        const cx = c.getContext('2d');
+        const mid = size / 2;
+        const grad = cx.createRadialGradient(mid, mid, 0, mid, mid, mid);
+        grad.addColorStop(0,    `rgba(${r},${g},${b},1)`);
+        grad.addColorStop(0.25, `rgba(${r},${g},${b},0.85)`);
+        grad.addColorStop(0.55, `rgba(${r},${g},${b},0.25)`);
+        grad.addColorStop(1,    `rgba(${r},${g},${b},0)`);
+        cx.fillStyle = grad;
+        cx.fillRect(0, 0, size, size);
+        return new THREE.CanvasTexture(c);
+    }
+
+    const TEX = {
+        indigo: glowTexture(99,  102, 241),
+        cyan:   glowTexture(6,   182, 212),
+        amber:  glowTexture(245, 158, 11),
+        star:   glowTexture(200, 210, 230, 32),
+    };
+
+    // ── Career clusters ────────────────────────────────────────────────────────
+    // x=0 is screen center. First cluster is at roughly halfway between
+    // the left screen edge (~-6 at z=88) and center → x ≈ -3.
+    // Deeper clusters scatter wider as the FOV opens up.
+    const CLUSTERS = [
+        { x: -3.2, y:  0.5, z: 88, tex: TEX.cyan,   hi: false },
+        { x:  7.0, y:  2.5, z: 70, tex: TEX.indigo,  hi: false },
+        { x: -8.0, y: -3.5, z: 54, tex: TEX.indigo,  hi: false },
+        { x:  9.0, y:  4.0, z: 40, tex: TEX.amber,   hi: false },
+        { x: -6.5, y: -2.5, z: 26, tex: TEX.indigo,  hi: false },
+        { x:  5.5, y:  3.5, z: 13, tex: TEX.cyan,    hi: false },
+        { x:  0.0, y:  0.0, z:  2, tex: TEX.amber,   hi: true  },
+    ];
+
+    // ── Build glow nodes ───────────────────────────────────────────────────────
+    const nodes = [];   // { sprite, baseScale, phase }
+
+    CLUSTERS.forEach((cl, i) => {
+        const baseScale = cl.hi ? 5.5 : (i === 0 ? 3.2 * 0.8 : 3.2);
+        const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+            map: cl.tex,
+            blending: THREE.AdditiveBlending,
+            transparent: true,
+            opacity: cl.hi ? 1.0 : 0.85,
+            depthWrite: false,
+        }));
+        sprite.scale.setScalar(baseScale);
+        sprite.position.set(cl.x, cl.y, cl.z);
+        scene.add(sprite);
+        nodes.push({ sprite, baseScale, phase: i * 0.9 });
+    });
+
+    // ── Background star field ──────────────────────────────────────────────────
+    const starPos = new Float32Array(1200 * 3);
+    for (let i = 0; i < 1200; i++) {
+        starPos[i * 3]     = (Math.random() - 0.5) * 160;
+        starPos[i * 3 + 1] = (Math.random() - 0.5) * 110;
+        starPos[i * 3 + 2] = Math.random() * 100 + 5;
+    }
+    const starGeo = new THREE.BufferGeometry();
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({
+        map: TEX.star, size: 0.38,
+        blending: THREE.AdditiveBlending, transparent: true, opacity: 0.5,
+        depthWrite: false, sizeAttenuation: true,
+    })));
+
+    // ── Inter-cluster spine ────────────────────────────────────────────────────
+    const spineVerts = [];
+    CLUSTERS.forEach(cl => spineVerts.push(cl.x, cl.y, cl.z));
+    const spineGeo = new THREE.BufferGeometry();
+    spineGeo.setAttribute('position', new THREE.Float32BufferAttribute(spineVerts, 3));
+    scene.add(new THREE.Line(spineGeo, new THREE.LineBasicMaterial({
+        color: 0x4f46e5, transparent: true, opacity: 0.10,
+        blending: THREE.AdditiveBlending, depthWrite: false,
+    })));
+
+    // ── Camera ────────────────────────────────────────────────────────────────
+    const CAM_Z_START = 100;
+    const CAM_Z_END   = -2;
+    camera.position.set(0, 0, CAM_Z_START);
+
+    const camTarget   = new THREE.Vector3(0, 0, CAM_Z_START);
+    const lookAtPoint = new THREE.Vector3(0, 0, 0);
+
+    // ── Theme-reactive clear color (makes scene visible on light background) ──
+    function syncTheme() {
+        const light = document.documentElement.getAttribute('data-theme') === 'light';
+        renderer.setClearColor(light ? 0x0d1b3e : 0x000000, light ? 0.22 : 0);
+    }
+    syncTheme();
+    document.querySelector('.theme-toggle')?.addEventListener('click', () =>
+        setTimeout(syncTheme, 50)
+    );
+
+    // ── Scroll fraction (full page) ───────────────────────────────────────────
+    let scrollFrac = 0;
+
+    function readScroll() {
+        const scrollable = document.body.scrollHeight - window.innerHeight;
+        scrollFrac = scrollable > 0
+            ? Math.max(0, Math.min(1, window.scrollY / scrollable))
+            : 0;
+    }
+
+    // ── Render loop ───────────────────────────────────────────────────────────
+    let rafId;
+    let tick = 0;
+
+    function loop() {
+        rafId = requestAnimationFrame(loop);
+        tick += 0.016;
+        readScroll();
+
+        // Camera flies from z=100 → z=-2 with full-page scroll
+        const ci = Math.min(CLUSTERS.length - 1, Math.floor(scrollFrac * CLUSTERS.length));
+        const cl = CLUSTERS[ci];
+        const tz = CAM_Z_START + (CAM_Z_END - CAM_Z_START) * scrollFrac;
+        camTarget.set(cl.x * 0.28, cl.y * 0.28, tz);
+        camera.position.lerp(camTarget, 0.06);
+        lookAtPoint.set(cl.x * 0.15, cl.y * 0.15, camera.position.z - 18);
+        camera.lookAt(lookAtPoint);
+
+        // Pulse each glow node gently
+        nodes.forEach(({ sprite, baseScale, phase }) => {
+            const s = baseScale * (1 + 0.07 * Math.sin(tick * 1.1 + phase));
+            sprite.scale.setScalar(s);
+        });
+
+        renderer.render(scene, camera);
+    }
+
+    loop();
+
+    // ── Resize ────────────────────────────────────────────────────────────────
+    window.addEventListener('resize', () => {
+        camera.aspect = W() / H();
+        camera.updateProjectionMatrix();
+        renderer.setSize(W(), H());
+    });
+
+    window.addEventListener('beforeunload', () => {
+        cancelAnimationFrame(rafId);
+        renderer.dispose();
+    });
 }
