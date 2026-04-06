@@ -771,7 +771,9 @@ function initThreeScene() {
     // ── Theme-reactive clear color (makes scene visible on light background) ──
     function syncTheme() {
         const light = document.documentElement.getAttribute('data-theme') === 'light';
-        renderer.setClearColor(light ? 0x0d1b3e : 0x000000, light ? 0.22 : 0);
+        // Dark mode: renderer owns the full background color
+        // Light mode: subtle dark tint so glowing particles are visible
+        renderer.setClearColor(light ? 0x0d1b3e : 0x0f172a, light ? 0.22 : 1);
     }
     syncTheme();
     document.querySelector('.theme-toggle')?.addEventListener('click', () =>

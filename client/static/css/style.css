@@ -72,9 +72,13 @@ html {
     font-size: 16px;
 }
 
+html {
+    background: var(--background-dark); /* fallback before canvas renders */
+}
+
 body {
     font-family: var(--font-family);
-    background: var(--background-dark);
+    background: transparent;
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
@@ -256,7 +260,7 @@ body {
     height: 100%;
     display: block;
     pointer-events: none;
-    z-index: 0;
+    z-index: -1;
 }
 
 /* Main content sits above the canvas */
