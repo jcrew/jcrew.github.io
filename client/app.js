@@ -555,6 +555,7 @@ function initializeWorldMap() {
         { name: 'Dallas, TX', lat: 32.7767, lng: -96.7970 },
         { name: 'Oahu, HI', lat: 21.4389, lng: -158.0001 },
         { name: 'Kona, HI', lat: 19.6390, lng: -155.9969 },
+        { name: 'Maui, HI', lat: 20.7984, lng: -156.3319 },
         
         // Canada
         { name: 'Ottawa, Canada', lat: 45.4215, lng: -75.6972 },
@@ -563,6 +564,8 @@ function initializeWorldMap() {
         
         // Mexico
         { name: 'Cancun, Mexico', lat: 21.1619, lng: -86.8515 },
+        { name: 'Los Cabos, Mexico', lat: 22.8905, lng: -109.9167 },
+        { name: 'Puerto Vallarta, Mexico', lat: 20.6534, lng: -105.2253 },
         
         // Europe
         { name: 'London, UK', lat: 51.5074, lng: -0.1278 },
