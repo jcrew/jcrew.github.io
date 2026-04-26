@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateThemeIcon(theme) {
-        themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
         themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
     }
     
@@ -278,12 +277,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Header transparency effect
                 const header = document.querySelector('.header');
                 if (currentScrollY > 100) {
-                    header.style.background = 'rgba(15, 23, 42, 0.98)';
+                    header.style.background = 'rgba(5, 5, 15, 0.98)';
                     if (document.documentElement.getAttribute('data-theme') === 'light') {
                         header.style.background = 'rgba(255, 255, 255, 0.98)';
                     }
                 } else {
-                    header.style.background = 'rgba(15, 23, 42, 0.95)';
+                    header.style.background = 'rgba(5, 5, 15, 0.95)';
                     if (document.documentElement.getAttribute('data-theme') === 'light') {
                         header.style.background = 'rgba(255, 255, 255, 0.95)';
                     }
@@ -556,6 +555,7 @@ function initializeWorldMap() {
         { name: 'Dallas, TX', lat: 32.7767, lng: -96.7970 },
         { name: 'Oahu, HI', lat: 21.4389, lng: -158.0001 },
         { name: 'Kona, HI', lat: 19.6390, lng: -155.9969 },
+        { name: 'Maui, HI', lat: 20.7984, lng: -156.3319 },
         
         // Canada
         { name: 'Ottawa, Canada', lat: 45.4215, lng: -75.6972 },
@@ -564,6 +564,8 @@ function initializeWorldMap() {
         
         // Mexico
         { name: 'Cancun, Mexico', lat: 21.1619, lng: -86.8515 },
+        { name: 'Los Cabos, Mexico', lat: 22.8905, lng: -109.9167 },
+        { name: 'Puerto Vallarta, Mexico', lat: 20.6534, lng: -105.2253 },
         
         // Europe
         { name: 'London, UK', lat: 51.5074, lng: -0.1278 },
@@ -773,7 +775,7 @@ function initThreeScene() {
         const light = document.documentElement.getAttribute('data-theme') === 'light';
         // Dark mode: renderer owns the full background color
         // Light mode: subtle dark tint so glowing particles are visible
-        renderer.setClearColor(light ? 0x0d1b3e : 0x0f172a, light ? 0.22 : 1);
+        renderer.setClearColor(0x05050f, 1);
     }
     syncTheme();
     document.querySelector('.theme-toggle')?.addEventListener('click', () =>

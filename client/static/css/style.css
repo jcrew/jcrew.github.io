@@ -13,7 +13,7 @@
     --primary-dark: #3730a3;
     --secondary-color: #06b6d4;
     --accent-color: #f59e0b;
-    --background-dark: #0f172a;
+    --background-dark: #05050f;
     --background-light: #ffffff;
     --background-section: #1e293b;
     --text-primary: #f8fafc;
@@ -56,7 +56,6 @@
 
 /* Light theme */
 [data-theme="light"] {
-    --background-dark: #ffffff;
     --background-section: #f8fafc;
     --text-primary: #1e293b;
     --text-secondary: #475569;
@@ -90,7 +89,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(5, 5, 15, 0.95);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
     transition: background-color 0.3s ease;
@@ -193,6 +192,7 @@ body {
     justify-content: center;
     transition: all 0.3s ease;
     margin-left: var(--spacing-sm);
+    color: var(--text-primary);
 }
 
 .theme-toggle:hover {
@@ -201,8 +201,20 @@ body {
 }
 
 .theme-icon {
-    font-size: 1.25rem;
     transition: transform 0.3s ease;
+    display: block;
+}
+
+.theme-icon-sun {
+    display: none;
+}
+
+[data-theme="light"] .theme-icon-moon {
+    display: none;
+}
+
+[data-theme="light"] .theme-icon-sun {
+    display: block;
 }
 
 /* Main Content */
@@ -216,7 +228,7 @@ body {
     scroll-margin-top: 120px;
     position: relative;
     z-index: 1;
-    background: rgba(15, 23, 42, 0.72);
+    background: rgba(5, 5, 15, 0.72);
 }
 
 [data-theme="light"] .section {
@@ -1042,10 +1054,14 @@ body {
 
 /* Footer */
 .footer {
-    background: rgba(30, 41, 59, 0.85);
+    background: rgba(5, 5, 15, 0.95);
     border-top: 1px solid var(--border-color);
     padding: var(--spacing-lg);
     text-align: center;
+}
+
+[data-theme="light"] .footer {
+    background: rgba(255, 255, 255, 0.95);
 }
 
 .footer-content {
@@ -1512,7 +1528,7 @@ body {
         top: 100%;
         left: 0;
         right: 0;
-        background: rgba(15, 23, 42, 0.98);
+        background: rgba(5, 5, 15, 0.98);
         flex-direction: column;
         padding: var(--spacing-md);
         gap: var(--spacing-xs);
