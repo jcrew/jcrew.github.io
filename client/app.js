@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function updateThemeIcon(theme) {
-        themeIcon.textContent = theme === 'dark' ? '🌙' : '☀️';
         themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`);
     }
     
@@ -278,12 +277,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Header transparency effect
                 const header = document.querySelector('.header');
                 if (currentScrollY > 100) {
-                    header.style.background = 'rgba(15, 23, 42, 0.98)';
+                    header.style.background = 'rgba(5, 5, 15, 0.98)';
                     if (document.documentElement.getAttribute('data-theme') === 'light') {
                         header.style.background = 'rgba(255, 255, 255, 0.98)';
                     }
                 } else {
-                    header.style.background = 'rgba(15, 23, 42, 0.95)';
+                    header.style.background = 'rgba(5, 5, 15, 0.95)';
                     if (document.documentElement.getAttribute('data-theme') === 'light') {
                         header.style.background = 'rgba(255, 255, 255, 0.95)';
                     }
@@ -773,7 +772,7 @@ function initThreeScene() {
         const light = document.documentElement.getAttribute('data-theme') === 'light';
         // Dark mode: renderer owns the full background color
         // Light mode: subtle dark tint so glowing particles are visible
-        renderer.setClearColor(light ? 0x0d1b3e : 0x0f172a, light ? 0.22 : 1);
+        renderer.setClearColor(0x05050f, 1);
     }
     syncTheme();
     document.querySelector('.theme-toggle')?.addEventListener('click', () =>
